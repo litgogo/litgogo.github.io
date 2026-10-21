@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { about } from '../../data/site';
+---
+<BaseLayout
+  title="About — THIS IS GOGO."
+  description="关于 GOGO：听播客，去陌生的地方走走，把听过的和走过的都留下来。"
+  path="/about/"
+>
+  <section class="page enter-motion">
+    <p class="eyebrow">{about.eyebrow}</p>
+    <h1 class="page-title" style="margin-top:16px">{about.title}</h1>
+    <div class="prose">
+      {about.paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+</BaseLayout>

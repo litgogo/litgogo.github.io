@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+<BaseLayout
+  title="THIS IS GOGO."
+  description={site.description}
+  path="/"
+>
+  <section class="hero enter-motion">
+    <h1 class="wordmark">THIS IS GOGO.</h1>
+    <p class="tagline">{site.tagline}</p>
+    <a class="enter" href="/explore/">Explore <span aria-hidden="true">→</span></a>
+  </section>
+</BaseLayout>

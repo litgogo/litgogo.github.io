@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArchiveCard from '../../components/ArchiveCard.astro';
+import { archives } from '../../data/site';
+
+const items = archives.filter((a) => a.visible);
+---
+<BaseLayout
+  title="Explore — THIS IS GOGO."
+  description="公开的两个档案分区：声音站与足迹站。"
+  path="/explore/"
+>
+  <section class="page enter-motion">
+    <h1 class="page-title">Explore.</h1>
+    <p class="eyebrow">Selected Archives / 00{items.length}</p>
+    <div class="grid">
+      {items.map((item) => <ArchiveCard {...item} />)}
+    </div>
+  </section>
+</BaseLayout>

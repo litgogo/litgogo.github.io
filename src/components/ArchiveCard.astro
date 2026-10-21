@@ -1,0 +1,22 @@
+---
+interface Props {
+  index: string;
+  en: string;
+  zh: string;
+  blurb: string;
+  href: string;
+  image?: string;
+  alt?: string;
+}
+const { index, en, zh, blurb, href, image, alt } = Astro.props;
+---
+<a class="card enter-motion" href={href}>
+  <div class="card-media">
+    {image ? <img src={image} alt={alt ?? ''} width="800" height="1000" loading="lazy" /> : <span class="card-ph" aria-hidden="true">{en}</span>}
+  </div>
+  <div class="card-meta">
+    <span class="card-index">{index} / {en}</span>
+    <h2 class="card-title">{zh}<span class="card-arrow" aria-hidden="true">↗</span></h2>
+    <p class="card-blurb">{blurb}</p>
+  </div>
+</a>

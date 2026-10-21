@@ -1,0 +1,68 @@
+---
+import '../styles/tokens.css';
+import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+}
+
+const { title, description, path } = Astro.props;
+const canonical = new URL(path, Astro.site).toString();
+const ogImage = new URL('/og.png', Astro.site).toString();
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a class="skip" href="#main">跳到正文</a>
+    <SiteHeader current={path} />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+    <script>
+      const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
+      const panel = document.querySelector<HTMLElement>('#mobile-nav');
+      if (btn && panel) {
+        const close = () => {
+          btn.setAttribute('aria-expanded', 'false');
+          panel.hidden = true;
+        };
+        btn.addEventListener('click', () => {
+          const open = btn.getAttribute('aria-expanded') === 'true';
+          if (open) {
+            close();
+          } else {
+            btn.setAttribute('aria-expanded', 'true');
+            panel.hidden = false;
+            panel.querySelector<HTMLAnchorElement>('a')?.focus();
+          }
+        });
+        panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && !panel.hidden) {
+            close();
+            btn.focus();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
